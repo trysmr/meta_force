@@ -1,0 +1,50 @@
+ja:
+  message:
+    app:
+      title: MetaForce
+    field_option:
+      case_sensitive: 大文字と小文字を区別する
+      default_value: デフォルト値
+      external_id: 外部 ID
+      require: 必須
+      unique: ユニーク
+    label:
+      api_name: API 名
+      available: 有効
+      calculate_or_help: 数式 / ヘルプ
+      data_type: データ型
+      field_name: 項目名
+      go_to_top: ページトップへ
+      help: ヘルプ
+      object: オブジェクト
+      object_list: オブジェクト一覧
+      object_name: オブジェクト名
+      record_type: レコードタイプ
+      record_type_name: レコードタイプ名
+      option: オプション
+      view_page: ビュー
+    nav:
+      logout: ログアウト
+  sobject:
+    field:
+      auto_number: 自動採番
+      base64: バイナリ
+      boolean: チェックボックス
+      calculate: 数式
+      currency: 通貨
+      date: 日付
+      datetime: 日付/時間
+      double: 数値
+      email: メール
+      id: ID
+      int: 数値
+      master_detail: 主従関係
+      multipicklist: 選択リスト（複数選択）
+      percent: パーセント
+      phone: 電話
+      picklist: 選択リスト
+      reference: 参照関係
+      roll_up_summary: 積み上げ集計
+      string: テキスト
+      textarea: テキストエリア
+      url: URL

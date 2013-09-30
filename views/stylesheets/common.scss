@@ -1,0 +1,43 @@
+body {
+  padding-top: 70px;
+  .nav-title {
+    padding: 20px;
+  }
+  @media (min-width: 768px) {
+    .navbar>.container .navbar-brand {
+      margin-left: 0px;
+    }
+  }
+  .logout {
+    padding: 5px 0;
+  }
+  .avatar {
+    img {
+      height: 32px;
+      padding-right: 10px;
+    }
+  }
+  .breadcrumb {
+    margin-top: 20px;
+  }
+  .link {
+    i {
+      padding-right: 10px;
+    }
+  }
+  table {
+    white-space: nowrap;
+    .field_label {
+      white-space: normal;
+    }
+    .help {
+      white-space: normal;
+    }
+  }
+  footer {
+    padding-bottom: 1em;
+    i {
+      padding-right: 5px;
+    }
+  }
+}

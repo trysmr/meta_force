@@ -1,0 +1,17 @@
+body#describe {
+  h1 {
+    .link_to_view {
+      display: inline-block;
+      margin-left: 2em;
+      font-size: 18px;
+    }
+  }
+
+  .picklist {
+    padding-left: 1em;
+    list-style: none;
+  }
+  .reference {
+    padding-left: 1em;
+  }
+}

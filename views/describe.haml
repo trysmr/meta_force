@@ -1,0 +1,21 @@
+- content_for :title do
+  = @sobject['label']
+
+%ol.breadcrumb
+  %li<
+    %a{ :href => '/' }= I18n.t('message.label.object_list')
+  %li.active<
+    = @sobject['label']
+
+%h1<
+  = @sobject['label']
+  .link_to_view.link= partial "_link_to_view", :locals => { :key_prefix => @sobject['keyPrefix'] }
+
+= partial "_fields", :locals => { :fields => @fields }
+
+= partial "_record_types", :locals => { :record_types => @sobject['recordTypeInfos'] }
+
+/ - @sobject.sort.each do |k,v|
+/   - if k != 'fields'
+/     = "#{k}=#{v}"
+/     %br

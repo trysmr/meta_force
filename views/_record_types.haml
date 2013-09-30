@@ -1,0 +1,15 @@
+- if record_types.size > 1
+  %h2= I18n.t('message.label.record_type')
+
+  %table.table.table-striped.table-borderd.table-hover
+    %thead
+      %tr
+        %th= I18n.t('message.label.record_type_name')
+        %th= I18n.t('message.label.available')
+    %tbody
+      - record_types.each do |record_type|
+        %tr<
+          %td= record_type['name']
+          %td<
+            - if record_type['available']
+              %i.icon-check

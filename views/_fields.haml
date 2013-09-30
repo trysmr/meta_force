@@ -1,0 +1,88 @@
+%table.table.table-striped.table-borderd.table-hover
+  %thead
+    %tr
+      %th= I18n.t('message.label.field_name')
+      %th= I18n.t('message.label.api_name')
+      %th= I18n.t('message.label.data_type')
+      %th= I18n.t('message.label.calculate_or_help')
+  %tbody
+    - fields.each do |field|
+      %tr<
+        %td.field_label= field['label']
+        %td= field['name']
+        %td<
+          - # データ型
+          - calculated = field['calculated'] && field['calculatedFormula']
+          - if calculated
+            - # 数式
+            = I18n.t("sobject.field.calculate")
+          - elsif field['calculated'] && !field['calculatedFormula']
+            - # 積み上げ集計
+            = I18n.t("sobject.field.roll_up_summary")
+          - elsif field['type'] == 'reference' && field['cascadeDelete']
+            - # 主従関係
+            = I18n.t("sobject.field.master_detail")
+          - elsif field['autoNumber']
+            - # 自動採番
+            = I18n.t('sobject.field.auto_number')
+          - else
+            = I18n.t("sobject.field.#{field['type']}")
+          - if field['type'] != 'reference' |
+            && field['type'] != 'picklist' |
+            && field['type'] != 'multipicklist' |
+            && field['type'] != 'id' |
+            && !field['autoNumber'] |
+            && !calculated |
+            && (field['length'] > 0 || field['digits'] > 0) |
+
+            - # 参照関係、選択リスト、自動採番、ID、数式以外は長さを表示
+            = "(#{field['length'] > 0 && field['length'] || field['digits'] > 0 && field['digits']})"
+          - if field['precision'] > 0
+            = "(#{field['precision']}, #{field['scale']})"
+          - unless field['nillable']
+            - # 必須
+            .field-option.label.label-danger= I18n.t('message.field_option.require')
+          - if field['unique']
+            - # ユニーク
+            .field-option.label.label-info= I18n.t('message.field_option.unique')
+          - if field['caseSensitive']
+            - # 大文字と小文字を区別する
+            .field-option.label.label-info= I18n.t('message.field_option.case_sensitive')
+          - if field['externalId']
+            - # 外部ID
+            .field-option.label.label-info= I18n.t('message.field_option.external_id')
+          - if field['defaultValue']
+            - # デフォルト値
+            .field-option.label.label-info<
+              = I18n.t('message.field_option.default_value')
+              = field['defaultValue']
+          - if field['referenceTo'].length > 0
+            - # 参照関係
+            .reference
+              = "#{I18n.t('message.label.api_name')}: #{field['relationshipName']}"
+              %br
+              - field['referenceTo'].each do |reference_object|
+                = "#{I18n.t('message.label.object')}: "
+                %a{ :href => "/describe?sobject=#{reference_object}" }= reference_object
+                %br
+          - if field['picklistValues'].length > 0
+            - # 選択リスト
+            %ul.picklist
+              - field['picklistValues'].each do |picklist|
+                %li<
+                  = picklist['label']
+                  - if picklist['defaultValue']
+                    %span.label.label-info<
+                      = "#{I18n.t('message.field_option.default_value')}"
+        %td.help<
+          - if field['calculatedFormula']
+            - # 数式
+            = field['calculatedFormula']
+            %br
+          - if field['inlineHelpText']
+            - # ヘルプテキスト
+            %i.icon-question{ :title => I18n.t('message.label.help') }
+            = field['inlineHelpText']
+          / - field.sort.each do |k,v|
+          /   = "#{k}=#{v}"
+          /   %br

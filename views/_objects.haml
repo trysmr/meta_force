@@ -1,0 +1,16 @@
+%table.table.table-striped.table-borderd.table-hover
+  %thead
+    %tr
+      %th= I18n.t('message.label.object_name')
+      %th= I18n.t('message.label.api_name')
+      %th= I18n.t('message.label.view_page')
+  %tbody
+    - objects.each do |object|
+      - if object['keyPrefix']
+        %tr<
+          %td<
+            %a{ :href => "/describe?sobject=#{object['name']}" }<
+              = object['label']
+          %td= object['name']
+          %td.link<
+            = partial "_link_to_view", :locals => { :key_prefix => object['keyPrefix'] }

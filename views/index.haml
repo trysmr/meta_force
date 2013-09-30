@@ -1,0 +1,6 @@
+- content_for :title do
+  = I18n.t('message.label.object_list')
+
+%h1= I18n.t('message.label.object_list')
+
+= partial "_objects", :locals => { :objects => @objects }
