@@ -33,6 +33,9 @@ class MetaForce < Sinatra::Base
     set :haml, { :format => :html5 }
     set :scss, { :style => :compact }
     set :instance_url, nil
+    set :client_id, ENV['CLIENT_ID'] || settings.client_id
+    set :client_secret, ENV['CLIENT_SECRET'] || settings.client_secret
+    set :scope, 'id api web'
     set :debugging, development?
     set :version, 28.0
 
