@@ -4,7 +4,6 @@
 salesforce.com のオブジェクト一覧、オブジェクトの項目一覧を表示する簡易 Web アプリです。
 
 ## 使い方
-------
 
 ```
 $ git clone https://github.com/taul-y/meta_force.git
@@ -26,7 +25,6 @@ development:
 ```
 
 ## デモ画面
-------
 
 ### オブジェクト一覧画面
 
@@ -37,6 +35,5 @@ development:
 ![オブジェクトの項目一覧画面](demo02_fields.png)
 
 ## TODO
-------
 * テストコード
 * ビューでアクセスできないけど keyPrefix があるのでリンクが貼ってあるオブジェクトがいくつも...
