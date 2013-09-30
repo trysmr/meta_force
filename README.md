@@ -8,6 +8,7 @@ salesforce.com のオブジェクト一覧、オブジェクトの項目一覧�
 
 ```
 $ git clone https://github.com/taul-y/meta_force.git
+$ cd meta_force
 $ bundle install
 $ vi ./config.yml
 $ bundle exec rackup -p 4567
@@ -19,7 +20,12 @@ $ bundle exec rackup -p 4567
 
 ```
 development:
-  client_id: YOUR_CLIENT_KEY
-  client_secret: YOUR_CLIENT_SECRET
+  client_id: 'YOUR_CLIENT_KEY'
+  client_secret: 'YOUR_CLIENT_SECRET'
   scope: 'id api web'
 ```
+
+## TODO
+==========
+* テストコード
+* ビューでアクセスできないけど keyPrefix があるのでリンクが貼ってあるオブジェクトがいつくも...
