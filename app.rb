@@ -10,6 +10,7 @@ require 'omniauth-salesforce'
 require 'databasedotcom'
 require 'haml'
 require 'sass'
+require 'csv'
 
 class MetaForce < Sinatra::Base
   use Rack::Session::Cookie
@@ -27,6 +28,8 @@ class MetaForce < Sinatra::Base
     I18n.load_path += Dir[File.join(settings.root, 'locales', '*.yml')]
     I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
     I18n.locale = 'ja'
+
+    mime_type :csv, 'text.csv'
 
     enable :logging
 
@@ -78,13 +81,19 @@ class MetaForce < Sinatra::Base
     haml :index
   end
 
-  get '/describe/?:name?' do
+  get '/describe/?:name?.?:format?' do
     @sobject = client.describe_sobject params[:name]
     fields = @sobject['fields']
     standard_fields = fields.select { |field| !field['custom'] }.sort{ |a,b| a['label'] <=> b['label'] }
     custom_fields = fields.select { |field| field['custom'] }.sort{ |a,b| a['label'] <=> b['label'] }
     @fields = standard_fields + custom_fields
-    haml :describe
+    if params[:format] == 'csv'
+      content_type :csv
+      attachment "#{params[:name]}_#{Time.now.strftime('%Y%m%d%H%M%S')}.csv"
+      build_csv(@fields)
+    else
+      haml :describe
+    end
   end
 
   get '/auth/salesforce/callback' do
@@ -121,6 +130,16 @@ class MetaForce < Sinatra::Base
 
   def instance_url
     settings.instance_url
+  end
+
+  def build_csv(items, encoding = 'shift_jis')
+    headers = items[0].keys
+    data = CSV.generate(:headers => headers, :write_headers => true, :force_quotes => true) do |csv|
+      items.each do |item|
+        csv << item.values
+      end
+    end
+    data.encode(encoding, :invalid => :replace, :undef => :replace, :replace => '*')
   end
 
   error Databasedotcom::SalesForceError do
