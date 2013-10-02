@@ -14,3 +14,4 @@
           %td= object['name']
           %td.link<
             = partial "_link_to_view", :locals => { :key_prefix => object['keyPrefix'] }
+            .link_to_download= partial "_link_to_download", :locals => { :link => "/describe/#{object['name']}.csv" }

@@ -22,7 +22,7 @@ ja:
       record_type: レコードタイプ
       record_type_name: レコードタイプ名
       option: オプション
-      view_page: ビュー
+      view_page: ビュー / CSV
     error:
       not_found: オブジェクトは見つかりませんでした。
       session_is_invalid: セッションが無効です。
