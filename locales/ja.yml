@@ -23,6 +23,9 @@ ja:
       record_type_name: レコードタイプ名
       option: オプション
       view_page: ビュー
+    error:
+      session_is_invalid: セッションが無効です。
+      something_wrong: エラーが発生しました。%{error}
     nav:
       logout: ログアウト
   sobject:

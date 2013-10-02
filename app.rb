@@ -30,6 +30,8 @@ class MetaForce < Sinatra::Base
 
     enable :logging
 
+    set :show_exceptions, :after_handler
+
     set :haml, { :format => :html5 }
     set :scss, { :style => :compact }
     set :instance_url, nil
@@ -119,6 +121,18 @@ class MetaForce < Sinatra::Base
 
   def instance_url
     settings.instance_url
+  end
+
+  error Databasedotcom::SalesForceError do
+    exception = env['sinatra.error']
+    logger.error exception
+    if exception.error_code == "INVALID_SESSION_ID"
+      session[:client] = nil
+      @message = I18n.t('message.error.session_is_invalid')
+    else
+      @message = I18n.t('message.error.something_wrong', :error => exception)
+    end
+    haml :error
   end
 
   run! if app_file == $0

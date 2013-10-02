@@ -2,7 +2,8 @@
 %html{ :lang => 'ja' }
   %head
     %meta{ :charset => 'utf-8' }
-    %title= "#{yield_content :title} | #{I18n.t('message.app.title')}"
+    - title = content_for?(:title) && "#{yield_content(:title)} | " || ""
+    %title= "#{title}#{I18n.t('message.app.title')}"
     %link{ :rel => 'stylesheet', :href => '/stylesheets/bootstrap.min.css' }
     %link{ :rel => 'stylesheet', :href => '/stylesheets/font-awesome.min.css' }
     %link{ :rel => 'stylesheet', :href => '/stylesheets/style.css' }
