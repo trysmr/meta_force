@@ -63,7 +63,7 @@
               %br
               - field['referenceTo'].each do |reference_object|
                 = "#{I18n.t('message.label.object')}: "
-                %a{ :href => "/describe?sobject=#{reference_object}" }= reference_object
+                %a{ :href => "/describe/#{reference_object}" }= reference_object
                 %br
           - if field['picklistValues'].length > 0
             - # 選択リスト

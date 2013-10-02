@@ -9,7 +9,7 @@
       - if object['keyPrefix']
         %tr<
           %td<
-            %a{ :href => "/describe?sobject=#{object['name']}" }<
+            %a{ :href => "/describe/#{object['name']}" }<
               = object['label']
           %td= object['name']
           %td.link<

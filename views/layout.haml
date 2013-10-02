@@ -7,7 +7,7 @@
     %link{ :rel => 'stylesheet', :href => '/stylesheets/bootstrap.min.css' }
     %link{ :rel => 'stylesheet', :href => '/stylesheets/font-awesome.min.css' }
     %link{ :rel => 'stylesheet', :href => '/stylesheets/style.css' }
-  %body{ :id => "#{request.path == '/' && 'index' || request.path.sub!('/', '')}" }
+  %body{ :id => "#{request.path == '/' && 'index' || request.path.split('/')[1]}" }
     %header
       %nav.navbar-default.navbar-fixed-top{ :role => 'navigation' }
         .navbar-header

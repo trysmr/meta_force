@@ -24,6 +24,7 @@ ja:
       option: オプション
       view_page: ビュー
     error:
+      not_found: オブジェクトは見つかりませんでした。
       session_is_invalid: セッションが無効です。
       something_wrong: エラーが発生しました。%{error}
     nav:

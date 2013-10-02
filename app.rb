@@ -78,8 +78,8 @@ class MetaForce < Sinatra::Base
     haml :index
   end
 
-  get '/describe' do
-    @sobject = client.describe_sobject params[:sobject]
+  get '/describe/?:name?' do
+    @sobject = client.describe_sobject params[:name]
     fields = @sobject['fields']
     standard_fields = fields.select { |field| !field['custom'] }.sort{ |a,b| a['label'] <=> b['label'] }
     custom_fields = fields.select { |field| field['custom'] }.sort{ |a,b| a['label'] <=> b['label'] }
@@ -129,6 +129,8 @@ class MetaForce < Sinatra::Base
     if exception.error_code == "INVALID_SESSION_ID"
       session[:client] = nil
       @message = I18n.t('message.error.session_is_invalid')
+    elsif exception.error_code == "NOT_FOUND"
+      @message = I18n.t('message.error.not_found')
     else
       @message = I18n.t('message.error.something_wrong', :error => exception)
     end
