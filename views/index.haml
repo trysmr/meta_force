@@ -1,6 +1,8 @@
 - content_for :title do
   = I18n.t('message.label.object_list')
 
-%h1= I18n.t('message.label.object_list')
+%h1<
+  = I18n.t('message.label.object_list')
+  .link_to_download= partial "_link_to_download", :locals => { :link => "csv" }
 
 = partial "_objects", :locals => { :objects => @objects }

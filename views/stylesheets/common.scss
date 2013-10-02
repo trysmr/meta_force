@@ -20,6 +20,13 @@ body {
   .breadcrumb {
     margin-top: 20px;
   }
+  h1 {
+    .link_to_view, .link_to_download {
+      display: inline-block;
+      margin-left: 2em;
+      font-size: 18px;
+    }
+  }
   .link {
     i {
       padding-right: 10px;

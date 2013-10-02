@@ -10,10 +10,7 @@
 %h1<
   = @sobject['label']
   .link_to_view.link= partial "_link_to_view", :locals => { :key_prefix => @sobject['keyPrefix'] }
-  .link_to_download<
-    %a{ :href => "#{@sobject['name']}.csv" }
-      %i.icon-cloud-download.icon-large
-
+  .link_to_download= partial "_link_to_download", :locals => { :link => "#{@sobject['name']}.csv" }
 
 = partial "_fields", :locals => { :fields => @fields }
 

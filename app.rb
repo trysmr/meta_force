@@ -73,12 +73,16 @@ class MetaForce < Sinatra::Base
     scss(:"/stylesheets/#{params[:name]}" )
   end
 
-  get '/' do
+  get '/:format?' do
     objects = client.describe_sobjects
     standard_objects = objects.select { |object| !object['custom'] }.sort{ |a,b| a['label'] <=> b['label'] }
     custom_objects = objects.select { |object| object['custom'] }.sort{ |a,b| a['label'] <=> b['label'] }
     @objects = standard_objects + custom_objects
-    haml :index
+    if params[:format] == 'csv'
+      build_csv(I18n.t('message.label.object_list'), @objects)
+    else
+      haml :index
+    end
   end
 
   get '/describe/?:name?.?:format?' do
@@ -88,9 +92,7 @@ class MetaForce < Sinatra::Base
     custom_fields = fields.select { |field| field['custom'] }.sort{ |a,b| a['label'] <=> b['label'] }
     @fields = standard_fields + custom_fields
     if params[:format] == 'csv'
-      content_type :csv
-      attachment "#{params[:name]}_#{Time.now.strftime('%Y%m%d%H%M%S')}.csv"
-      build_csv(@fields)
+      build_csv(params[:name], @fields)
     else
       haml :describe
     end
@@ -132,13 +134,15 @@ class MetaForce < Sinatra::Base
     settings.instance_url
   end
 
-  def build_csv(items, encoding = 'shift_jis')
+  def build_csv(name, items, encoding = 'shift_jis')
     headers = items[0].keys
     data = CSV.generate(:headers => headers, :write_headers => true, :force_quotes => true) do |csv|
       items.each do |item|
         csv << item.values
       end
     end
+    content_type :csv
+    attachment "#{name}_#{Time.now.strftime('%Y%m%d%H%M%S')}.csv"
     data.encode(encoding, :invalid => :replace, :undef => :replace, :replace => '*')
   end
 
