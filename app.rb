@@ -27,7 +27,7 @@ class MetaForce < Sinatra::Base
 
     I18n.load_path += Dir[File.join(settings.root, 'locales', '*.yml')]
     I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
-    I18n.locale = 'ja'
+    I18n.default_locale = 'ja'
 
     mime_type :csv, 'text.csv'
 
