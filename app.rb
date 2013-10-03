@@ -151,6 +151,7 @@ class MetaForce < Sinatra::Base
     logger.error exception
     if exception.error_code == "INVALID_SESSION_ID"
       session[:client] = nil
+      session[:current_user] = nil
       @message = I18n.t('message.error.session_is_invalid')
     elsif exception.error_code == "NOT_FOUND"
       @message = I18n.t('message.error.not_found')

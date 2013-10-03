@@ -8,6 +8,11 @@ body {
       margin-left: 0px;
     }
   }
+  @media (max-width: 768px) {
+    .container {
+      margin-top: 120px;
+    }
+  }
   .logout {
     padding: 5px 0;
   }

@@ -14,10 +14,12 @@
           %a.nav-title.navbar-brand{ :href => "/" }= I18n.t('message.app.title')
 
         %ul.nav.navbar-nav.navbar-right
-          %li.avatar
-            %a{ :href => "#{instance_url}/#{current_user[:user_id]}", :target => '_blank' }<
-              %img{ :src => "#{current_user[:small_photo_url]}?oauth_token=#{client.oauth_token}" }
-              = current_user[:user_name]
+          - if current_user
+            %li.avatar
+              %a{ :href => "#{instance_url}/#{current_user[:user_id]}", :target => '_blank' }<
+                - if client
+                  %img{ :src => "#{current_user[:small_photo_url]}?oauth_token=#{client.oauth_token}" }
+                = current_user[:user_name]
           %li.logout
             %a{ :href => '/logout' }<
               = I18n.t('message.nav.logout')
