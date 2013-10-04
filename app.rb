@@ -74,6 +74,8 @@ class MetaForce < Sinatra::Base
   end
 
   get '/:format?' do
+    pass if request.path_info =~ /^\/logout/
+
     objects = client.describe_sobjects
     standard_objects = objects.select { |object| !object['custom'] }.sort{ |a,b| a['label'] <=> b['label'] }
     custom_objects = objects.select { |object| object['custom'] }.sort{ |a,b| a['label'] <=> b['label'] }
@@ -99,19 +101,14 @@ class MetaForce < Sinatra::Base
   end
 
   get '/auth/salesforce/callback' do
-    begin
-      session[:client] = Databasedotcom::Client.new :client_id => settings.client_id, :client_secret => settings.client_secret, :version => settings.version, :debugging => settings.debugging
-      session[:client].authenticate request.env['omniauth.auth']
-    rescue Databasedotcom::SalesForceError => e
-      request.env['rack.session'] = {}
-      @message = e.message
-      logger.error e
-    end
+    session[:client] = Databasedotcom::Client.new :client_id => settings.client_id, :client_secret => settings.client_secret, :version => settings.version, :debugging => settings.debugging
+    session[:client].authenticate request.env['omniauth.auth']
     redirect to '/'
   end
 
   get '/auth/failure' do
-    request.env['rack.session'] = {}
+    session[:client] = nil
+    session[:current_user] = nil
     redirect to '/'
   end
 
