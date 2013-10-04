@@ -51,15 +51,15 @@ class MetaForce < Sinatra::Base
   end
 
   before do
+    pass if request.path_info =~ /^\/stylesheets\//
     pass if request.path_info =~ /^\/auth\//
 
     redirect to('/auth/salesforce') unless client
 
     settings.instance_url ||= client.instance_url
 
-    client.materialize("User") unless Module.const_defined?("User")
     unless current_user
-      user = User.find(client.user_id)
+      user = client.find("User", client.user_id)
       session[:current_user] = {
           :user_id => user['Id'],
           :user_name => user['Name'],
