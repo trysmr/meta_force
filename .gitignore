@@ -4,3 +4,5 @@
 .ruby-version
 tmp
 config.yml
+vendor/bundle
+/.bundle
