@@ -19,9 +19,10 @@ ja:
       object: オブジェクト
       object_list: オブジェクト一覧
       object_name: オブジェクト名
+      option: オプション
+      profiles: プロファイル一覧
       record_type: レコードタイプ
       record_type_name: レコードタイプ名
-      option: オプション
       view_page: ビュー / CSV
     error:
       not_found: オブジェクトは見つかりませんでした。

@@ -1,0 +1,17 @@
+- content_for :title do
+  = @profile.Name if @profile
+
+%ol.breadcrumb
+  %li<
+    %a{ :href => '/profiles' }= I18n.t('message.label.profiles')
+  %li.active<
+    = @profile.Name if @profile
+
+%h1<
+  = @profile.Name if @profile
+
+%table.table.table-striped.table-borderd.table-hover
+  %tbody
+  - @users.each do |user|
+    %tr
+      %td= user.Name

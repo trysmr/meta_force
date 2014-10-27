@@ -1,0 +1,14 @@
+- content_for :title do
+  = I18n.t("message.label.profiles")
+
+%h1<
+  = I18n.t("message.label.profiles")
+
+%table.table.table-striped.table-borderd.table-hover
+  %tbody
+  - @profiles.each do |profile|
+    %tr
+      %td><
+        %a{ :href => "/users?profile_id=#{profile.Id}" }= profile.Name
+      %td= profile.Description
+      %td= profile.UserLicense.Name

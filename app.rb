@@ -73,17 +73,40 @@ class MetaForce < Sinatra::Base
     scss(:"/stylesheets/#{params[:name]}" )
   end
 
+  get '/profiles' do
+    client.materialize("Profile")
+    @profiles = client.query("SELECT Id, Name, Description, UserLicense.Name
+      FROM Profile WHERE UserType != 'Guest' ORDER BY Name")
+
+    haml :profiles
+  end
+
+  get '/users' do
+    client.materialize("Profile")
+    @profile_id = params[:profile_id]
+    if @profile_id
+      @profile = Profile.find(@profile_id)
+      @users = client.query("SELECT Id, Name FROM User WHERE ProfileId = '#{@profile_id}' ORDER BY Name")
+
+      haml :users
+    else
+      redirect to '/profiles'
+    end
+  end
+
   get '/:format?' do
     pass if request.path_info =~ /^\/logout/
 
-    objects = client.describe_sobjects
-    standard_objects = objects.select { |object| !object['custom'] }.sort{ |a,b| a['label'] <=> b['label'] }
-    custom_objects = objects.select { |object| object['custom'] }.sort{ |a,b| a['label'] <=> b['label'] }
-    @objects = standard_objects + custom_objects
-    if params[:format] == 'csv'
-      build_csv(I18n.t('message.label.object_list'), @objects)
-    else
-      haml :index
+    if params[:format].nil? || params[:format] == 'csv'
+      objects = client.describe_sobjects
+      standard_objects = objects.select { |object| !object['custom'] }.sort{ |a,b| a['label'] <=> b['label'] }
+      custom_objects = objects.select { |object| object['custom'] }.sort{ |a,b| a['label'] <=> b['label'] }
+      @objects = standard_objects + custom_objects
+      if params[:format] == 'csv'
+        build_csv(I18n.t('message.label.object_list'), @objects)
+      else
+        haml :index
+      end
     end
   end
 
