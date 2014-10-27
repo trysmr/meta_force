@@ -7,7 +7,7 @@ salesforce.com のオブジェクト一覧、オブジェクトの項目一覧�
 ```
 $ git clone https://github.com/taul-y/meta_force.git
 $ cd meta_force
-$ bundle install
+$ bundle install --path=vendor/bundle
 $ vi ./config.yml
 $ bundle exec rackup -p 4567
 ```
