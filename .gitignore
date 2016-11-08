@@ -2,6 +2,7 @@
 .env
 .sass-cache
 .ruby-version
+log
 tmp
 config.yml
 vendor/bundle
