@@ -9,3 +9,4 @@ gem 'omniauth-salesforce', :git => 'https://github.com/realdoug/omniauth-salesfo
 gem 'databasedotcom'
 gem 'haml'
 gem 'sass'
+gem 'unicorn'
