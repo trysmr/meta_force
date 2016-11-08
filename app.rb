@@ -47,6 +47,9 @@ class MetaForce < Sinatra::Base
     use OmniAuth::Strategies::Salesforce, settings.client_id, settings.client_secret,
       :authorize_options => {
         :scope => settings.scope
+      },
+      client_options: {
+        site: settings.site
       }
   end
 
