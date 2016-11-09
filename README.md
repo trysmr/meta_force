@@ -5,7 +5,7 @@ salesforce.com のオブジェクト一覧、オブジェクトの項目一覧�
 ## 使い方
 
 ```
-$ git clone https://github.com/taul-y/meta_force.git
+$ git clone https://github.com/trysmr/meta_force.git
 $ cd meta_force
 $ bundle install --path=vendor/bundle
 $ vi ./config.yml
